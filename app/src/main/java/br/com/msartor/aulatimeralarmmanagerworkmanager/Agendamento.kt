@@ -16,7 +16,12 @@ class Agendamento(private val context: Context) {
         alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             System.currentTimeMillis() + 5000,
-            PendingIntent.getBroadcast(context,1,intent, PendingIntent.FLAG_IMMUTABLE))
+            PendingIntent.getBroadcast(
+                context,
+                1,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE)
+        )
     }
 
     fun cancelar(){}
