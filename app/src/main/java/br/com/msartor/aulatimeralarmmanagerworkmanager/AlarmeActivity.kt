@@ -1,10 +1,13 @@
 package br.com.msartor.aulatimeralarmmanagerworkmanager
 
+import android.content.pm.PackageManager
 import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import br.com.msartor.aulatimeralarmmanagerworkmanager.databinding.ActivityAlarmeBinding
@@ -33,6 +36,7 @@ class AlarmeActivity : AppCompatActivity() {
         val dataFormatada = formatador.format(dataMillis)
         Log.i("AGENDAMENTO_ANDROID","Data: $dataFormatada")
 
+        solicitarPermissao()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -49,5 +53,14 @@ class AlarmeActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun solicitarPermissao() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            val permissaoNotificacao = ActivityCompat.checkSelfPermission(this,android.Manifest.permission.POST_NOTIFICATIONS)
+            if(permissaoNotificacao == PackageManager.PERMISSION_DENIED) {
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 10)
+            }
+        }
     }
 }
