@@ -14,7 +14,7 @@ class AgendamentoBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
         Log.i("AGENDAMENTO_ANDROID", "Excecutou broadcast agendamento ")
-        exibirNotificacao(context)
+        //exibirNotificacao(context)
     }
 
     private fun exibirNotificacao(context: Context) {

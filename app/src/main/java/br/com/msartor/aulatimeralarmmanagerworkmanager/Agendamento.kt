@@ -16,14 +16,32 @@ class Agendamento(private val context: Context) {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             //set(2025,9,27)
-            add(Calendar.SECOND, 10)
+            //add(Calendar.SECOND, 10)
         }
+        val calendarInterval = Calendar.getInstance().apply {
+            set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
+        }
+
+
         //alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager = context.getSystemService(AlarmManager::class.java)
-        alarmManager.set(
+
+        /*alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             //System.currentTimeMillis() + 5000,
             calendar.timeInMillis,
+            PendingIntent.getBroadcast(
+                context,
+                1,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE)
+        )*/
+        alarmManager.setInexactRepeating(
+            AlarmManager.RTC,
+            calendar.timeInMillis,
+            //calendarInterval.timeInMillis
+            //AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+            120000,
             PendingIntent.getBroadcast(
                 context,
                 1,

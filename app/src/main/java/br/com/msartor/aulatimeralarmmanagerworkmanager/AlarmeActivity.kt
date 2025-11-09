@@ -45,6 +45,7 @@ class AlarmeActivity : AppCompatActivity() {
         }
 
         binding.btnAgendamento.setOnClickListener {
+            Log.i("AGENDAMENTO_ANDROID","Cliclou no botao agendamento...")
             agendamento.agendar()
         }
 
