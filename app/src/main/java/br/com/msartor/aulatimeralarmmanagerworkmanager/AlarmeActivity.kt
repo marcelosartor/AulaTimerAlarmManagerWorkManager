@@ -50,7 +50,7 @@ class AlarmeActivity : AppCompatActivity() {
         }
 
         binding.btnCancelarAgendamento.setOnClickListener {
-
+            agendamento.cancelar()
         }
 
 

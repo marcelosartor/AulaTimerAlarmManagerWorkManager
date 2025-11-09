@@ -6,10 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Build
+import android.util.Log
 
 class Agendamento(private val context: Context) {
 
     private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
 
     fun agendar(){
         //val intent = Intent(context, AgendamentoBroadcastReceiver::class.java)
@@ -24,7 +26,7 @@ class Agendamento(private val context: Context) {
             set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
         }
 
-        val pendingIntent = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        pendingIntent = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             PendingIntent.getForegroundService(
                 context,
                 1,
@@ -42,9 +44,10 @@ class Agendamento(private val context: Context) {
         //alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager = context.getSystemService(AlarmManager::class.java)
 
-        alarmManager.set(
+        alarmManager.setInexactRepeating(
             AlarmManager.RTC,
-            System.currentTimeMillis()+4000,
+            System.currentTimeMillis()+4_000,
+            30_000,
             pendingIntent
         )
 
@@ -73,6 +76,10 @@ class Agendamento(private val context: Context) {
          */
     }
 
-    fun cancelar(){}
+    fun cancelar(){
+        Log.i("AGENDAMENTO_ANDROID","Cancelado")
+        alarmManager.cancel(pendingIntent)
+        Log.i("AGENDAMENTO_ANDROID", "Agendamento cancelado com sucesso!")
+    }
 
 }
