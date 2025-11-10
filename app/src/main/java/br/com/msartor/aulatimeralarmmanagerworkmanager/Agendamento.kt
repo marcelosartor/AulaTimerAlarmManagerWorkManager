@@ -14,6 +14,7 @@ class Agendamento(private val context: Context) {
     private lateinit var pendingIntent: PendingIntent
 
     fun agendar(){
+        Log.i("AGENDAMENTO_ANDROID","Agendando......")
         //val intent = Intent(context, AgendamentoBroadcastReceiver::class.java)
         val intent = Intent(context, MeuService::class.java)
 
@@ -46,8 +47,8 @@ class Agendamento(private val context: Context) {
 
         alarmManager.setInexactRepeating(
             AlarmManager.RTC,
-            System.currentTimeMillis()+4_000,
-            30_000,
+            System.currentTimeMillis()+2_000,
+            10_000,
             pendingIntent
         )
 
