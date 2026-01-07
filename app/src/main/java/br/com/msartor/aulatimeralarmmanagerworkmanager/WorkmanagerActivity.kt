@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import androidx.work.workDataOf
 import br.com.msartor.aulatimeralarmmanagerworkmanager.databinding.ActivityWorkmanagerBinding
 
 class WorkmanagerActivity : AppCompatActivity() {
@@ -31,6 +32,12 @@ class WorkmanagerActivity : AppCompatActivity() {
         solicitarPermissao()
 
         val oneTimeWorkRequest = OneTimeWorkRequestBuilder<MeuWork>()
+            .setInputData(
+                workDataOf(
+                    Constantes.PARAMETER_WORK_NAME to "teste",
+                    Constantes.PARAMETER_WORK_TIME to 1000
+                )
+            )
             .build()
 
         val workManager = WorkManager.getInstance(applicationContext)
