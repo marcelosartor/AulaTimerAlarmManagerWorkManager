@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AulaTimerAlarmManagerWorkManager"
         tools:targetApi="31">
+        <activity
+            android:name=".AlarmeActivity"
+            android:exported="false" />
+
         <receiver
             android:name=".ReinicializacaoReceiver"
             android:enabled="true"
@@ -30,7 +34,7 @@
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="dataSync"
-            tools:ignore="ForegroundServicePermission"></service>
+            tools:ignore="ForegroundServicePermission" />
 
         <receiver
             android:name=".AgendamentoBroadcastReceiver"
@@ -38,7 +42,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".AlarmeActivity"
+            android:name=".WorkmanagerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

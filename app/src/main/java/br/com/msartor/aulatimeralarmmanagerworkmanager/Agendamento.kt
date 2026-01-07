@@ -4,7 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.icu.util.Calendar
+import java.util.Calendar
 import android.os.Build
 import android.util.Log
 
@@ -15,8 +15,8 @@ class Agendamento(private val context: Context) {
 
     fun agendar(){
         Log.i("AGENDAMENTO_ANDROID","Agendando......")
-        //val intent = Intent(context, AgendamentoBroadcastReceiver::class.java)
-        val intent = Intent(context, MeuService::class.java)
+        //val intent = Intent(context, MeuService::class.java)
+        val intent = Intent(context,MeuService::class.java)
 
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
@@ -44,6 +44,7 @@ class Agendamento(private val context: Context) {
 
         //alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager = context.getSystemService(AlarmManager::class.java)
+
 
         alarmManager.setInexactRepeating(
             AlarmManager.RTC,
