@@ -1,8 +1,11 @@
 package br.com.msartor.aulatimeralarmmanagerworkmanager
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.work.OneTimeWorkRequestBuilder
@@ -25,6 +28,8 @@ class WorkmanagerActivity : AppCompatActivity() {
             insets
         }
 
+        solicitarPermissao()
+
         val oneTimeWorkRequest = OneTimeWorkRequestBuilder<MeuWork>()
             .build()
 
@@ -32,6 +37,15 @@ class WorkmanagerActivity : AppCompatActivity() {
 
         binding.btnExecutarWork.setOnClickListener {
             workManager.enqueue(oneTimeWorkRequest)
+        }
+    }
+
+    private fun solicitarPermissao() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            val permissaoNotificacao = ActivityCompat.checkSelfPermission(this,android.Manifest.permission.POST_NOTIFICATIONS)
+            if(permissaoNotificacao == PackageManager.PERMISSION_DENIED) {
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 10)
+            }
         }
     }
 }
