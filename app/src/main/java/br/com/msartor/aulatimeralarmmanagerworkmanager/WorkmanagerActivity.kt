@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
@@ -37,6 +39,15 @@ class WorkmanagerActivity : AppCompatActivity() {
                     Constantes.PARAMETER_WORK_NAME to "teste",
                     Constantes.PARAMETER_WORK_TIME to 1000
                 )
+            )
+            .setConstraints(
+                Constraints.Builder()
+                    //.setRequiredNetworkType(NetworkType.CONNECTED)
+                    //.setRequiresCharging(true)
+                    //.setRequiresBatteryNotLow(true)
+                    //.setRequiresDeviceIdle(true)
+                    //.setRequiresStorageNotLow(true)
+                    .build()
             )
             .build()
 
