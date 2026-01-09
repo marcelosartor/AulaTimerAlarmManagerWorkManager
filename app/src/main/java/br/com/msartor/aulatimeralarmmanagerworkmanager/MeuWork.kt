@@ -34,7 +34,7 @@ class MeuWork(private val context: Context, private val workerParameters: Worker
 
         Log.i("workmenager_android", "Nome: ${nome} Tempo: ${time}" )
 
-        repeat(5){
+        repeat(20){
             delay(1000)
             Log.i("workmenager_android", "Servico Contador: $it")
         }
