@@ -3,6 +3,7 @@ package br.com.msartor.aulatimeralarmmanagerworkmanager
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -12,6 +13,7 @@ import androidx.work.Constraints
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import br.com.msartor.aulatimeralarmmanagerworkmanager.databinding.ActivityWorkmanagerBinding
@@ -54,6 +56,21 @@ class WorkmanagerActivity : AppCompatActivity() {
             .build()
 
         val workManager = WorkManager.getInstance(applicationContext)
+
+        // Informações de progresso
+        workManager.getWorkInfoByIdLiveData(oneTimeWorkRequest.id)
+            .observe(this){
+                if(it !=null ) {
+
+                    if(it.state == WorkInfo.State.RUNNING){
+                        Log.i("workmenager_android-process", "Rodando" )
+                    }
+                    val progresso = it.progress.getInt(Constantes.PROGRESS_WORK, 0)
+                    //binding.tvProgress.text = "Progresso: $progresso"
+                    binding.tvProgress.text = "Progresso: $it"
+                }
+
+            }
 
         binding.btnExecutarWork.setOnClickListener {
             //workManager.enqueue(oneTimeWorkRequest)

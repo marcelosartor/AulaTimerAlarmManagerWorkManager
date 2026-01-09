@@ -39,6 +39,11 @@ android {
 }
 
 dependencies {
+    // LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
     // Kotlin + coroutines
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.core.ktx)

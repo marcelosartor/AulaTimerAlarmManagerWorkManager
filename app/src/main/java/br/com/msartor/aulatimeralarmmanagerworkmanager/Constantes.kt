@@ -10,4 +10,6 @@ object Constantes {
 
     const val TAG_WORK = "execucaoUsuarios"
     const val NAME_UNIQUE_WORK = "execucaoUsuario"
+
+    const val PROGRESS_WORK = "progresso"
 }
