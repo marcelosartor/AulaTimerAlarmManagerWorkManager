@@ -10,13 +10,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import br.com.msartor.aulatimeralarmmanagerworkmanager.databinding.ActivityWorkmanagerBinding
+import java.util.concurrent.TimeUnit
 
 class WorkmanagerActivity : AppCompatActivity() {
 
@@ -35,8 +38,11 @@ class WorkmanagerActivity : AppCompatActivity() {
         }
 
         solicitarPermissao()
+        // OneTimeWorkRequest -> WorkRequest
+        // PeriodicWorkRequest -> WorkRequest
 
-        val oneTimeWorkRequest = OneTimeWorkRequestBuilder<MeuWork>()
+        /*
+        val workRequest = OneTimeWorkRequestBuilder<MeuWork>()
             .setInputData(
                 workDataOf(
                     Constantes.PARAMETER_WORK_NAME to "teste",
@@ -54,11 +60,18 @@ class WorkmanagerActivity : AppCompatActivity() {
                     .build()
             )
             .build()
+        */
+
+        val workRequest = PeriodicWorkRequestBuilder<MeuWork>(
+            repeatInterval = 15,
+            repeatIntervalTimeUnit = TimeUnit.MINUTES
+        ).setInitialDelay(duration = 20, timeUnit = TimeUnit.SECONDS)
+            .build()
 
         val workManager = WorkManager.getInstance(applicationContext)
 
         // Informações de progresso
-        workManager.getWorkInfoByIdLiveData(oneTimeWorkRequest.id)
+        workManager.getWorkInfoByIdLiveData(workRequest.id)
             .observe(this){
                 if(it !=null ) {
 
@@ -74,10 +87,16 @@ class WorkmanagerActivity : AppCompatActivity() {
 
         binding.btnExecutarWork.setOnClickListener {
             //workManager.enqueue(oneTimeWorkRequest)
-            workManager.enqueueUniqueWork(
+            /*workManager.enqueueUniqueWork(
                 Constantes.NAME_UNIQUE_WORK,
                 ExistingWorkPolicy.KEEP,
-                oneTimeWorkRequest
+                workRequest
+            )
+            */
+            workManager.enqueueUniquePeriodicWork(
+                Constantes.NAME_UNIQUE_WORK,
+                ExistingPeriodicWorkPolicy.KEEP,
+                workRequest
             )
         }
 
