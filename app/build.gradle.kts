@@ -43,6 +43,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     // Lifecycles only (without ViewModel or LiveData)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // Kotlin + coroutines
     implementation(libs.androidx.work.runtime.ktx)

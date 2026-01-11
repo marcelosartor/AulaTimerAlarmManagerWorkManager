@@ -63,9 +63,9 @@ class WorkmanagerActivity : AppCompatActivity() {
         */
 
         val workRequest = PeriodicWorkRequestBuilder<MeuWork>(
-            repeatInterval = 15,
-            repeatIntervalTimeUnit = TimeUnit.MINUTES
-        ).setInitialDelay(duration = 20, timeUnit = TimeUnit.SECONDS)
+            repeatInterval = 1,
+            repeatIntervalTimeUnit = TimeUnit.DAYS
+        ).setInitialDelay(duration = 5, timeUnit = TimeUnit.SECONDS)
             .build()
 
         val workManager = WorkManager.getInstance(applicationContext)
