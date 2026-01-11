@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".CustomApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,7 +19,32 @@
         android:theme="@style/Theme.AulaTimerAlarmManagerWorkManager"
         tools:targetApi="31">
         <activity
-            android:name=".CronometroActivity"
+            android:name=".AlarmeActivity"
+            android:exported="false" />
+
+        <receiver
+            android:name=".ReinicializacaoReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".MeuService"
+            android:enabled="true"
+            android:exported="true"
+            android:foregroundServiceType="dataSync"
+            tools:ignore="ForegroundServicePermission" />
+
+        <receiver
+            android:name=".AgendamentoBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".WorkmanagerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,9 +53,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".CronometroActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>
